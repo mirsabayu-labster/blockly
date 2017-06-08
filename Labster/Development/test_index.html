@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Blockly Demo: Fixed Blockly</title>
+  <script src="blockly_compressed.js"></script>
+  <script src="labster.js"></script>
+  <script src="labster_block.js"></script>
+  <script src="labsterblock_gui.js"></script>
+  <script src="labster_gui.js"></script>
+  <script src="labster_blocky.js"></script>
+  <script src="en.js"></script>
+  <style>
+    body {
+      background-color: #fff;
+      font-family: sans-serif;
+    }
+    h1 {
+      font-weight: normal;
+      font-size: 140%;
+    }
+  </style>
+</head>
+<body>
+  <div id="blocky_div" style="height: 700px; width: 1200px;"></div>
+  <button type="button" onclick="generate()">Generate</button>
+  <button type="button" onclick="saveBlock()">SaveBlock</button>
+  <a></a>
+  <div id="generation_area">
+    <p id="generation">
+    </p>
+  </div>
+  <xml id="toolbox" style="display: none">
+    <category name="Mission">
+      <block type="missions"></block>
+      <block type="mission"></block>
+      <block type="tasks"></block>
+      <block type="task"></block>
+      <block type="actions"></block>
+      <block type="completewhen"></block>
+      <block type="completeactions"></block>
+      <block type="skippedwhen"></block>
+      <block type="skippedactions"></block>
+      <block type="setter"></block>
+      <block type="move_to"></block>
+      <block type="data_condition"></block>
+      <block type="title_input_value"></block>
+      <block type="custom_input_value"></block>
+      <block type="instruction_input_value"></block>
+    </category>
+    <category name="Conversation">
+      <block type="start_conversation"></block>
+      <block type="conversation_id"></block>
+      <block type="conversation_sentence"></block>
+    </category>
+    <category name="GUI">
+      <block type="gui"></block>
+      <block type="guiexternal"></block>
+      <block type="guitooltip3d"></block>
+      <block type="label"></block>
+    </category>
+    
+
+  </xml>
+
+  <script type="text/javascript">
+    var workspace = Blockly.inject('blocky_div', {toolbox: document.getElementById('toolbox')});
+
+  // function to generate code
+  function generate() {
+  var code = Blockly.Labster.workspaceToCode(workspace);
+  console.log(code);
+  }
+
+  // function to save block - save blocky data to xml string
+  function saveBlock() 
+  {
+    var xml = LabsterSaveBlock(workspace);
+    console.log(xml);
+  }
+
+  // function to load block - load xml string to blocky data
+  function loadBlock(textString) 
+  {
+    var xml = LabsterLoadBlock(textString);
+    Blockly.Xml.domToWorkspace(xml, workspace);
+  }
+
+  </script>
+
+</body>

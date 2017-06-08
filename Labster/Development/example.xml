@@ -1,0 +1,44 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="task" id="sGu7q`,ur4~}sA`mii5l" x="29" y="257">
+    <field name="task_Id0">undefined</field>
+    <statement name="task_Actions1">
+      <block type="start_conversation" id="UxT/|M=92CX+=H|ETO8K">
+        <field name="Id">undefined</field>
+        <next>
+          <block type="setter" id="v|u;v$6MRNT@e$P]`Sf@">
+            <field name="setter_Id0">undefined</field>
+            <field name="setter_property0">IsClickable</field>
+            <field name="setter_value0">undefined</field>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <statement name="task_SkippedWhen3">
+      <block type="data_condition" id=":29W)O3EpFZrtluU_F:?">
+        <field name="data_condition_Id0">undefined</field>
+        <field name="data_condition_property0">IsClickable</field>
+        <field name="data_condition_comparison0">Null</field>
+        <field name="data_condition_value0">undefined</field>
+      </block>
+    </statement>
+    <next>
+      <block type="task" id="E}_c?RSex|AH|4uz-C_W">
+        <field name="task_Id0">undefined</field>
+        <statement name="task_Actions1">
+          <block type="setter" id="1/oIaEt}i7M6#iqVT^7z">
+            <field name="setter_Id0">undefined</field>
+            <field name="setter_property0">IsClickable</field>
+            <field name="setter_value0">undefined</field>
+          </block>
+        </statement>
+        <statement name="task_CompleteActions4">
+          <block type="setter" id="O_TcC0Jp.?P7X,~v6?PU">
+            <field name="setter_Id0">undefined</field>
+            <field name="setter_property0">IsClickable</field>
+            <field name="setter_value0">undefined</field>
+          </block>
+        </statement>
+      </block>
+    </next>
+  </block>
+</xml>
