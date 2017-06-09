@@ -19,10 +19,11 @@
   </style>
 </head>
 <body>
-  <div id="blocky_div" style="height: 700px; width: 1200px;"></div>
+ <div id="blocky_div" style="height: 700px; width: 1200px;"></div>
   <button type="button" onclick="generate()">Generate</button>
-  <button type="button" onclick="saveBlock()">SaveBlock</button>
-  <a></a>
+  <button  type="button" onclick="saveBlock()">SaveBlock</button>
+  <input type="file" id="files" accept="text/xml" name="files" multiple onchange = "openfile(event)" />
+  <a id = "save_block" download="test.xml" >Click here</a>
   <div id="generation_area">
     <p id="generation">
     </p>
@@ -49,24 +50,63 @@
   <script type="text/javascript">
     var workspace = Blockly.inject('blocky_div', {toolbox: document.getElementById('toolbox')});
 
-  // function to generate code
+ // function to generate code
   function generate() {
   var code = Blockly.Labster.workspaceToCode(workspace);
-  alert(code);
+  console.log(code);
+  }
+  
+  function Labster_SaveBlock(workspace){
+
+   var xml = Blockly.Xml.workspaceToDom(workspace);
+   var xml_text = Blockly.Xml.domToPrettyText(xml);
+
+   return xml_text;
+    }
+
+  function Labster_LoadBlock(xmlWorkspace){
+
+    var xml = Blockly.Xml.textToDom(xmlWorkspace);
+    return xml;
   }
 
   // function to save block - save blocky data to xml string
   function saveBlock() 
   {
-    var xml = LabsterSaveBlock(workspace);
-    alert(xml);
+    var xml = Labster_SaveBlock(workspace);
+    download("testDownload.xml", xml);
+    console.log(xml);
+  }
+
+  function download(file, text)
+  {
+    var a = document.getElementById("save_block");
+    var blob = new Blob([text], {type :'data:application/octet-stream' });
+    a.href = window.URL.createObjectURL(blob);
+    a.download = file;
+    a.click();
   }
 
   // function to load block - load xml string to blocky data
   function loadBlock(textString) 
   {
-    var xml = LabsterLoadBlock(textString);
+    var xml = Labster_LoadBlock(textString);
     Blockly.Xml.domToWorkspace(xml, workspace);
+  }
+
+  var openfile = function (event){
+    var input = event.target;
+
+    var reader = new FileReader();
+    reader.readAsText(input.files[0]);
+    reader.onload = function(){
+      console.log(reader.result);
+      loadBlock(reader.result);
+    }
+
+   
+
+    
   }
 
   </script>

@@ -5,11 +5,26 @@
   <title>Blockly Demo: Fixed Blockly</title>
   <script src="blockly_compressed.js"></script>
   <script src="labster.js"></script>
-  <script src="labster_block.js"></script>
-  <script src="labsterblock_gui.js"></script>
-  <script src="labster_gui.js"></script>
-  <script src="labster_blocky.js"></script>
   <script src="en.js"></script>
+  <script src="Generator/labster_gen_core.js"></script>
+  <script src="Blocks/labster_block_core.js"></script>
+  <script src="Blocks/labster_block_time.js"></script>
+  <script src="Generator/labster_gen_time.js"></script>
+  <script src="Blocks/labster_block_player.js"></script>
+  <script src="Generator/labster_gen_player.js"></script>
+  <script src="Blocks/labster_block_assets.js"></script>
+  <script src="Generator/labster_gen_assets.js"></script>
+  <script src="Blocks/labster_block_media_center.js"></script>
+  <script src="Generator/labster_gen_media_center.js"></script>
+  <script src="Blocks/labster_block_audio_center.js"></script>
+  <script src="Generator/labster_gen_audio_center.js"></script>
+  <script src="Blocks/labster_block_voice_manager.js"></script>
+  <script src="Generator/labster_gen_voice_manager.js"></script>
+  <script src="Blocks/labster_block_voice.js"></script>
+  <script src="Generator/labster_gen_voice.js"></script>
+  <script src="Blocks/labster_block_image.js"></script>
+  <script src="Generator/labster_gen_image.js"></script>
+  <script src="Blocks/labster_block_gui_misc.js"></script>
   <style>
     body {
       background-color: #fff;
@@ -24,14 +39,90 @@
 <body>
   <div id="blocky_div" style="height: 700px; width: 1200px;"></div>
   <button type="button" onclick="generate()">Generate</button>
-  <button type="button" onclick="saveBlock()">SaveBlock</button>
-  <a></a>
+  <button  type="button" onclick="saveBlock()">SaveBlock</button>
+  <input type="file" id="files" accept="text/xml" name="files" multiple onchange = "openfile(event)" />
+  <a id = "save_block" download="test.xml" >Click here</a>
   <div id="generation_area">
     <p id="generation">
     </p>
   </div>
   <xml id="toolbox" style="display: none">
-    <category name="Mission">
+    <!-- <category name="Core">
+      <block type="engine"></block>
+    </category> -->
+    <category name="Time" colour=160>
+      <block type="time"></block>
+      <block type="currenttime"></block>
+      <block type="iterationspersecond"></block>
+      <block type="starttime"></block>
+      <block type="timelapseminutes"></block>
+      <block type="timelapsemultiplier"></block>
+    </category>
+    <category name="Player" colour=10>
+      <block type="player"></block>
+      <block type="currentlookangle"></block>
+      <block type="currentposition"></block>
+      <block type="defaultquizmaxpoint"></block>
+      <block type="defaultquizminpoint"></block>
+      <block type="defaultquizpointreduction"></block>
+      <block type="externalhandspath"></block>
+      <block type="isfreelook"></block>
+      <block type="labpadhandrotation"></block>
+      <block type="labpaditemid"></block>
+      <block type="score"></block>
+    </category>
+    <category name="Assets" colour=20>
+      <block type="assets"></block>
+      <block type="asset"></block>
+    </category>
+    <category name="Media Center" colour=30>
+      <block type="MediaCenter"></block>
+      <block type="MediaList"></block>
+      <block type="FullScreenImageURL"></block>
+    </category>
+    <category name="Audio Center" colour=40>
+      <block type="AudioCenter"></block>
+      <block type="ExternalPath"></block>
+      <block type="IsSoundEnabled"></block>
+      <block type="IsMusicEnabled"></block>
+    </category>
+    <category name="Voice Manager" colour=50>
+      <block type="VoiceManager"></block>
+      <block type="DefaultVoiceId"></block>
+      <block type="IsLogEnabled"></block>
+      <block type="IsEnabled"></block>
+    </category>
+    <category name="Voice" colour=60>
+      <block type="Voice"></block>
+      <block type="Gender"></block>
+      <block type="GameObjectId"></block>
+      <block type="Group"></block>
+    </category>
+    <category name="Image" colour=70>
+      <block type="Images"></block>
+      <block type="Image"></block>
+      <block type="Title"></block>
+      <block type="URL"></block>
+      <block type="IsUnlocked"></block>
+    </category>
+     <category name="GUI Misc." colour=70>
+      <block type="IsShown"></block>
+      <block type="IsVisible"></block>
+      <block type="Name"></block>
+      <block type="AtlasPath"></block>
+      <block type="ImageSource"></block>
+      <block type="FontPath"></block>
+      <block type="ComparisonVisibility"></block>
+      <block type="ComparisonValue"></block>
+      <block type="Position"></block>
+      <block type="Pivot"></block>
+      <block type="Source"></block>
+      <block type="Depth"></block>
+      <block type="Align"></block>
+      <block type="Size"></block>
+      <block type="Color"></block>
+    </category>
+    <!-- <category name="Mission">
       <block type="missions"></block>
       <block type="mission"></block>
       <block type="tasks"></block>
@@ -58,7 +149,7 @@
       <block type="guiexternal"></block>
       <block type="guitooltip3d"></block>
       <block type="label"></block>
-    </category>
+    </category> -->
     
 
   </xml>
@@ -76,7 +167,17 @@
   function saveBlock() 
   {
     var xml = LabsterSaveBlock(workspace);
+    download("testDownload.xml", xml);
     console.log(xml);
+  }
+
+  function download(file, text)
+  {
+    var a = document.getElementById("save_block");
+    var blob = new Blob([text], {type :'data:application/octet-stream' });
+    a.href = window.URL.createObjectURL(blob);
+    a.download = file;
+    a.click();
   }
 
   // function to load block - load xml string to blocky data
@@ -84,6 +185,19 @@
   {
     var xml = LabsterLoadBlock(textString);
     Blockly.Xml.domToWorkspace(xml, workspace);
+  }
+
+  var openfile = function (event){
+    var input = event.target;
+
+    var reader = new FileReader();
+    reader.readAsText(input.files[0]);
+    reader.onload = function(){
+      console.log(reader.result);
+      loadBlock(reader.result);
+    }
+
+    
   }
 
   </script>

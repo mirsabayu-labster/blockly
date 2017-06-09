@@ -43,6 +43,10 @@ Blockly.Labster.ORDER_ASSIGNMENT = 16;    // = += -= \*= /= %= <<= >>= ...
 Blockly.Labster.ORDER_COMMA = 17;         // ,
 Blockly.Labster.ORDER_NONE = 99;          // (...)
 
+Blockly.FieldColour.COLOURS = ['#75b0eb','#6695cf','#5a89b7','#467099','#406284','#59656e','#444e54','#30363b','#808080','#b3b3b3','#e6e6e6','#efefef',
+								'#f7f7f7','#eb7575','#fde545','#9eeb74','#b461e8','#f9ac34','#ffffff'];
+Blockly.FieldColour.COLUMNS = 5;
+
 Blockly.Labster.init = function(workspace){
 
 	Blockly.Labster.definitions_ = Object.create(null);
@@ -128,7 +132,7 @@ function LabsterSaveBlock(workspace){
 
 function LabsterLoadBlock(xmlWorkspace){
 
-	var xml = Blockly.Xml.textToDom(xmlString);
+	var xml = Blockly.Xml.textToDom(xmlWorkspace);
 	return xml;
 }
 
