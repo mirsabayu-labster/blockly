@@ -1,5 +1,24 @@
 # Blockly [![Build Status]( https://travis-ci.org/google/blockly.svg?branch=master)](https://travis-ci.org/google/blockly)
 
+To Test. download or clone from Labster Development goto Labster/index.html (open it with chrome or firefox). play with the blocks,!! (the generated xml is shown in the console (still left out the cosmetics :D ) - gonna work on it if it necessary.
+
+core development left :
+
+labster simulation xml to blockly xml converter.
+goals : native IDE for labster simulation script development.
+
+blocks to simulation
+simulation to blocks
+search for blocks
+debug blocks
+benefit ::
+
+boost readibility
+speed up our script writing process
+decrease human error
+can be developed to make it more integrated in our pipeline. Like native simulation scripting.
+
+
 
 Google's Blockly is a web-based, visual programming editor.  Users can drag
 blocks together to build programs.  All code is free and open source.
