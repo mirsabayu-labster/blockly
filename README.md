@@ -5,17 +5,25 @@ To Test. download or clone from Labster Development goto Labster/index.html (ope
 core development left :
 
 labster simulation xml to blockly xml converter.
+
 goals : native IDE for labster simulation script development.
 
 blocks to simulation
+
 simulation to blocks
+
 search for blocks
+
 debug blocks
+
 benefit ::
 
 boost readibility
+
 speed up our script writing process
+
 decrease human error
+
 can be developed to make it more integrated in our pipeline. Like native simulation scripting.
 
 
